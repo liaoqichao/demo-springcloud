@@ -1,0 +1,33 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: demo20-api-gateway-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    
+zuul:
+  sensitive-headers: Cookie", "Set-Cookie", "Authorization
+  ignore-security-headers: true
+  routes:
+    user:
+      service-id: microservices-provider-user
+      path: /user/**
+#      strip-prefix: false # 局部
+    user1:
+      service-id: microservice-provider-user
+      path: forward:/user  # 本地转发，这个zuul的user1的路径转发到/user的路径，/<route>
+    legacy: /** # 除了已经配置的，剩下的路由路径
+  prefix: /api 
+
+# management.endpoints.web.exposure.include: * 在yml会报错，必须在properties使用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,routes

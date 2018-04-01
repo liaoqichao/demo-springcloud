@@ -1,0 +1,22 @@
+server:
+  port: 7903  # 业务端口
+spring:
+  application:
+    name: demo16-consumer-movie
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+#    home-page-url-path: /ribbon # http://localhost:7903/ribbon/movie/id/3
+    
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  server:
+    port: 8013 # 管理端口，spring-boot-starter-actuator项目使用的端口都是7913, 包括hystrix.stream

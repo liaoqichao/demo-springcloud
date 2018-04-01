@@ -1,0 +1,41 @@
+server:
+  port: 7900
+
+spring:
+  application:
+    name: microservice-provider-user
+  datasource:
+#    url: jdbc:mysql://localhost:3306/springcloud
+#    name: root
+#    password: 123456
+#    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    dbcp2:
+      max-idle: 8
+      max-total: 20
+      min-idle: 8
+      initial-size: 10
+
+mybatis:
+  mapper-locations:
+  - classpath:mybatis/**/*Mapper.xml
+
+eureka:
+  client:
+    healthcheck:
+      enbaled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+# 打印日志方法2
+logging:
+  level:
+    root : INFO
+    lqc.demo.springcloud.*: trace # 改成你的mapper文件所在包路径
+  

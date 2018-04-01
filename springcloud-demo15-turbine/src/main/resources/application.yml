@@ -1,0 +1,25 @@
+server:
+  port: 8031
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+spring:
+  application:
+    name: microservices-hystrix-trubine
+#turbine:
+#  aggregator:
+#    cluster-config:
+#    - MICROSERVICES-CONSUMER-MOVIE
+#    - MICROSERVICES-PROVIDER-USER
+#  app-config: microservices-consumer-movie,microservices-provider-user
+
+turbine:
+  aggregator:
+    cluster-config:
+    - default
+  app-config: microservices-consumer-movie-feign,microservices-consumer-movie-ribbon
+  cluster-name-expression: "'default'" # 和new String("default")写法一样

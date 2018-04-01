@@ -1,0 +1,31 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: demo19-api-gateway-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    
+zuul:
+  ignored-patterns: /**/page/**  # 过滤掉http://localhost:8040/api/user/page/2/2
+  routes:
+    user:
+      service-id: microservices-provider-user
+      path: /user/**
+#      strip-prefix: false # 局部
+    user1:
+      service-id: microservice-provider-user
+      path: /user/**
+    legacy: /** # 除了已经配置的，剩下的路由路径
+  prefix: /api 
+#  stripPrefix: false # 默认是TRUE，从请求中删除代理前缀  全局 配置后报404
+#  prefix和stripPrefix(依赖于prefix的使用)连用影响是全局的
+#  path和stripPrefix连用影响是局部的
+logging:
+  level:
+    com.netflix: debug

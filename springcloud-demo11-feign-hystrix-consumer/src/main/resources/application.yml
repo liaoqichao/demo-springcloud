@@ -1,0 +1,18 @@
+server:
+  port: 7901
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: microservices-consumer-movie
+# 命令执行超时时间，默认1秒
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+
+feign:
+  hystrix:
+    enabled: true

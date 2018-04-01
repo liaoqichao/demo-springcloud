@@ -1,0 +1,21 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: demo18-api-gateway-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    
+zuul:
+  routes:
+    user:
+      service-id: microservices-provider-user
+      path: /user/**
+    user1:
+      service-id: microservice-provider-user
+      path: /user/**

@@ -1,0 +1,45 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: demo17-zuul
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+management:
+  endpoint:
+    health:
+      show-details: always
+      
+# 配置url方式一
+#zuul:
+#  # ignoredServices: '*' # 指定不反向代理的微服务，只有routes配了的微服务才反向代理。默认是*，反向代理所有微服务，如果不反向代理多个微服务，填serviceId，用逗号分隔开
+#  routes:
+#    microservices-provider-user: /user/**
+#    microservices-consumer-movie: /movie/**
+
+# 配置url方式二
+zuul:
+  routes:
+    user: # map的key不能重复
+      service-id: microservices-provider-user
+      path: /user/**
+    movie:
+      service-id: microservices-consumer-movie
+      path: /movie/**
+      
+# 配置url方式三， 不会执行hystrixCommand和ribbon负载均衡
+#zuul:
+#  routes:
+#    user: # map的key不能重复
+#      url: http://localhost:7900/
+#      path: /user/**
+#    movie:
+#      url: http://localhost:7901/
+#      path: /movie/**
