@@ -1,0 +1,27 @@
+1. eureka server
+2. microservice-user
+	- eureka client
+	- Hystrix
+	- Config Client
+3. microservice-cinema
+	- eureka client
+	- Hystrix
+	- Config Client
+4. microservice-movie
+	- eureka client
+	- Ribbon
+	- AsyncRestTemplate
+	- Hystrix
+	- Config Client
+5. config server
+	- eureka client
+6. dashboard
+7. turbine
+	- eureka client
+8. zuul
+	- eureka client
+9. git
+-------------------
+http://localhost:7902/buy.html
+点击提交
+调用cinema、user微服务，然后修改更新库存记录，增加订单记录

@@ -1,0 +1,17 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: turbine
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+turbine:
+  aggregator:
+    cluster-config:
+    - default
+  app-config: user,cinema,movie
+  cluster-name-expression: "'default'" # 和new String("default")写法一样
