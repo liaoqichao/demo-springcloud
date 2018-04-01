@@ -1,0 +1,37 @@
+server:
+  port: 8040
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    
+zuul:
+  routes:
+    fileupload:
+      service-id: microservice-file-upload
+      path: /uploadfile/**
+    user:
+      service-id: microservices-provider-user # demo2
+      path: /user/**
+  prefix: /api
+# management.endpoints.web.exposure.include: * 在yml会报错，必须在properties使用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,routes,hystrix.stream
+spring:
+  application:
+    name: demo21-api-gateway-zuul
+  servlet:
+    multipart:
+      max-file-size: 900Mb # 默认1M 
+      max-request-size: 1024Mb # 默认10M
+      
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000

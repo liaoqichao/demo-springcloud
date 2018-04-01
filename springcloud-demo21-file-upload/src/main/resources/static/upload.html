@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8040/zuul/api/uploadfile/upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="file"/> 
+		<input type="submit" value="提交"/>
+	</form>
+	
+	<!-- 加zuul前缀绕过Spring的DispatcherServlet，摆脱微服务端配置的文件大小限制，实际操作不能摆脱微服务的限制 -->
+<!-- 	<form action="http://localhost:8040/zuul/api/uploadfile/upload" method="post" enctype="multipart/form-data"> -->
+<!-- 		<input type="file" name="file"/>  -->
+<!-- 		<input type="submit" value="提交"/> -->
+<!-- 	</form> -->
+
+
+<!-- 	<form action="/upload" method="post" enctype="multipart/form-data"> -->
+<!-- 		<input type="file" name="file"/>  -->
+<!-- 		<input type="submit" value="提交"/> -->
+<!-- 	</form> -->
+</body>
+</html>
