@@ -1,0 +1,26 @@
+spring:
+  security:
+    user:
+      name: user
+      password: psw123
+server:
+  port: 8761
+eureka.client.healthcheck.enabled: true
+eureka:
+#  server:
+#    enable-self-preservation: false # 禁用自我保护模式
+#    eviction-interval-timer-in-ms: 60000 # 清理间隔，默认60000（1分钟）
+  environment: product # eureka主页的system status environment从test改为produck
+  datacenter: cloud # eureka主页的system status datacenter从default改为cloud
+  client:
+    healthcheck:
+      enabled: true
+    service-url: 
+#      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka # 和spring security配置的name、psw配置一致
+      defaultZone: http://localhost:8761/eureka # 和spring security配置的name、psw配置一致
+    register-with-eureka: false
+    fetch-registry: false
+
+    
+#spring.cloud.discovery.client.composite-indicator.enabled: false
+#spring.cloud.discovery.client.health-indicator.enabled: false

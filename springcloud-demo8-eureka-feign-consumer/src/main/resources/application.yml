@@ -1,0 +1,16 @@
+eureka:
+  client:
+    service-url: 
+      default-zone: http://localhost:8761/eureka,http://localhost:8762/eureka,http://localhost:8763/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    metadata-map:
+      zone: myzone
+      demo8: This is demo8. Eureka + Feign.
+server:
+  port: 7901
+spring:
+  application:
+    name: microservices-consumer-movie
+      

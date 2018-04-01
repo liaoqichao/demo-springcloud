@@ -1,0 +1,35 @@
+management:
+  health:
+    mail:
+      enabled: false
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true 
+    service-url:
+#      defaultZone: http://user:psw123@localhost:8761/eureka 
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    # 默认是主机名:应用名:端口
+    # 修改为应用名:端口
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+server:
+  port: 7901
+
+spring:
+  application:
+    name: microservices-consumer-movie # 名称建议用小写
+    
+microservices-provider-user:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule 
+    
+# 打印日志方法2
+#logging:
+#  level:
+#    root : INFO
+#    lqc.demo.springcloud.*: trace # 改成你的mapper文件所在包路径
+  
+  
