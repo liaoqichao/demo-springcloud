@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+<script type="text/javascript">
+//创建异步对象
+function createXMLHttpRequest(){
+	try{
+		return new XMLHttpRequest();	//支持大多数浏览器
+	}catch (e){
+		try {
+			return new ActiveXObject("Msxml2,XMLHTTP");	//支持IE6.0
+		} catch (e) {
+			try {
+				return new ActiveXObject("Microsoft,XMLHTTP"); //支持IE5.5及以下
+			} catch (e) {
+				alert("你用什么浏览器???");
+				throw e;
+			}
+		}
+	}
+}
+
+window.onload = function(){ //文档加载完毕后执行
+	var btn = document.getElementById("btn");
+	btn.onclick = function(){	//给按钮的点击事件注册监听器
+		/*
+			四部操作，得到服务器响应，把响应结果显示到h1元素中
+		*/
+		//1.得到一步对象
+		var xmlHttp = createXMLHttpRequest();
+		//2.打开与服务器的连接
+		xmlHttp.open("POST","/actuator/refresh","true");//请求方式,请求url，是否为异步请求
+		//2.1 open后添加请求头
+		xmlHttp.setRequestHeader("Content-Type", "application/json");
+		//3.发送请求
+		xmlHttp.send(null);//get请求没有请求体但也要给出null，不然firefox可能不能发送
+		//4.给异步对象的onreadystatechange事件注册监听器。
+		xmlHttp.onreadystatechange = function(){	//当xmlHttp状态变化时执行
+			if(xmlHttp.readyState ==4 && xmlHttp.status == 200){	
+				//双重判断。xmlhttp状态为4表示服务器响应结束，服务器响应的状态码为200
+				//获取响应的文本(数据)
+				var text = xmlHttp.responseText;
+				//获取h1元素
+				var h1 = document.getElementById("h1");
+				//把响应文本输出到h1元素
+				h1.innerHTML = text;
+			}
+		};
+	};
+};
+</script>
+</head>
+<body>
+	<h1>git修改了yml配置，config client手动刷新配置</h1>
+	<input id="btn" type="submit" value="刷新配置"/>
+	<div id="h1"></div>
+</body>
+</html>

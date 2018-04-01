@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true # 允许通过服务发现找config server
+        service-id: config-server # config server的service-id
+      username: user
+      password: psw123
+#      uri: http://localhost:8080/
+      profile: dev  # 
+      label: master # github主线，当config server存储是git时候默认就是master
+  application:
+    name: foobar  # github上boobar-de
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    
+# 暴露refresh端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh

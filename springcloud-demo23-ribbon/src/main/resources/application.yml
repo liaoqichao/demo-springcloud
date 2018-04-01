@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: microservice-ribbon-consumer
+server:
+  port: 7904
+eureka:
+  client:
+    healthcheck:
+      enabled: true 
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    
+    

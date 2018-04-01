@@ -1,0 +1,10 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/liaoqichao/{application}  # 改成通配符
+#          uri: https://github.com/liaoqichao/config-repo  # 不要.git后缀
+          

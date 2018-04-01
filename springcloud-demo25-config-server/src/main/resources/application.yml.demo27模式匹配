@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/liaoqichao/config-repo  # 公用的application.yml
+          repos:
+            simple: 
+              pattern: simple*/dev*,simple*/test*
+              uri: https://github.com/liaoqichao/simple # 找不到则找公用的uri
+            special: 
+              pattern: special*/dev*,special*/test*
+              uri: https://github.com/liaoqichao/special # 找不到则找公用的uri
+          

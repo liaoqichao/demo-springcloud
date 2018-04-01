@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8080/
+      username: user
+      password: psw123
+      profile: dev  # 
+      label: master # github主线，当config server存储是git时候默认就是master
+  application:
+    name: foobar  # github上boobar-dev.yml上的{application}
